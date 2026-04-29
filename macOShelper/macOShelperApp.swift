@@ -26,7 +26,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         _ = CommandRegistry.shared
         _ = QuickLauncherWindow.shared
-        
+
+        // Глобальная hotkey для лаунчера работает через Carbon и не должна блокироваться
+        // проверкой Accessibility (она нужна другим функциям, напр. симуляции ввода).
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.registerHotKey()
+        }
+
         checkAccessibilityPermissions()
     }
     
@@ -66,7 +72,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidBecomeActive(_ notification: Notification) {
         let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: false]
-        if AXIsProcessTrustedWithOptions(options as CFDictionary) && !GlobalHotKeyService.shared.isRegistered {
+        // Регистрируем hotkey даже без Accessibility (она не требуется для Carbon hotkeys).
+        _ = AXIsProcessTrustedWithOptions(options as CFDictionary)
+        if !GlobalHotKeyService.shared.isRegistered {
             registerHotKey()
         }
     }
@@ -89,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private func registerHotKey() {
         let keyCode = UserDefaults.standard.object(forKey: "hotkeyKeyCode") as? UInt32 ?? 49
-        let modifiers = UserDefaults.standard.object(forKey: "hotkeyModifiers") as? UInt32 ?? 3
+        let modifiers = normalizeCarbonModifiers(UserDefaults.standard.object(forKey: "hotkeyModifiers") as? UInt32)
         
         GlobalHotKeyService.shared.registerHotKey(
             keyCode: keyCode,
@@ -98,5 +106,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 QuickLauncherWindow.shared.toggle()
             }
         )
+    }
+
+    /// Ранние версии могли сохранять неверную маску модификаторов (например `3`).
+    /// Carbon ожидает биты вроде 0x0100 (⌘), 0x0800 (⌥), 0x1000 (⌃), 0x0200 (⇧).
+    private func normalizeCarbonModifiers(_ raw: UInt32?) -> UInt32 {
+        let fallback: UInt32 = KeyboardModifiers.cmdKey | KeyboardModifiers.optionKey // ⌘⌥ + Space
+
+        guard let raw else { return fallback }
+
+        // Если попалось маленькое число (< cmdKey), это почти наверняка старый/неверный формат.
+        if raw < KeyboardModifiers.cmdKey {
+            UserDefaults.standard.set(fallback, forKey: "hotkeyModifiers")
+            return fallback
+        }
+        return raw
     }
 }

@@ -14,11 +14,11 @@ struct FloatingTimerWindow: View {
 
             VStack(spacing: 12) {
                 Text("Фокус")
-                    .font(Font.custom("HSESans-SemiBold", size: 14))
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.secondaryTextApp)
 
                 Text(timeString(service.state?.remaining ?? 0))
-                    .font(Font.custom("HSESans-Bold", size: 34))
+                    .font(.system(size: 34, weight: .bold, design: .monospaced))
                     .foregroundColor(.mainTextApp)
                     .padding(.top, 2)
 

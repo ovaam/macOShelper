@@ -36,10 +36,10 @@ struct ClipboardOnboardingView: View {
         HStack {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Как пользоваться буфером MacDuck")
-                    .font(Font.custom("HSESans-Bold", size: 20))
+                    .font(.headline)
                     .foregroundColor(.mainTextApp)
                 Text("Краткий гайд по действиям внутри вкладки «Буфер обмена».")
-                    .font(Font.custom("HSESans-Regular", size: 13))
+                    .font(.callout)
                     .foregroundColor(.secondaryTextApp)
             }
             Spacer()
@@ -54,7 +54,7 @@ struct ClipboardOnboardingView: View {
 
     private func sectionTitle(_ title: String) -> some View {
         Text(title)
-            .font(Font.custom("HSESans-SemiBold", size: 15))
+            .font(.callout.weight(.semibold))
             .foregroundColor(.secondaryTextApp)
             .padding(.top, 8)
     }
@@ -70,10 +70,10 @@ struct ClipboardOnboardingView: View {
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(title)
-                    .font(Font.custom("HSESans-SemiBold", size: 14))
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.mainTextApp)
                 Text(description)
-                    .font(Font.custom("HSESans-Regular", size: 13))
+                    .font(.callout)
                     .foregroundColor(.secondaryTextApp)
                     .fixedSize(horizontal: false, vertical: true)
             }

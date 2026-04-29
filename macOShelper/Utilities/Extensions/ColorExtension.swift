@@ -2,18 +2,23 @@ import SwiftUI
 internal import AppKit
 
 extension Color {
-    static let blackApp = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFF5F5", darkHex: "#FFF5F5"))
-    static let grayApp = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFE8E8", darkHex: "#FFE8E8"))
-    static let lightGrayApp = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFDEDE", darkHex: "#FFDEDE"))
-    static let mainTextApp = Color(nsColor: NSColor(hex: "#5A4A4A"))
-    static let secondaryTextApp = Color(nsColor: NSColor(hex: "#8B7A7A"))
-    static let blueAccent = Color(nsColor: NSColor.adaptiveColor(lightHex: "#B5E5CF", darkHex: "#B5E5CF"))
-    static let greenAccent = Color(nsColor: NSColor.adaptiveColor(lightHex: "#A8D5C4", darkHex: "#A8D5C4"))
-    static let redAccent = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFB3BA", darkHex: "#FFB3BA"))
-    static let orangeAccent = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFD4A3", darkHex: "#FFD4A3"))
-    static let yellowAccent = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFE5B4", darkHex: "#FFE5B4"))
-    static let cardBackgroundApp = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFF0F0", darkHex: "#FFF0F0"))
-    static let borderApp = Color(nsColor: NSColor.adaptiveColor(lightHex: "#FFD6D6", darkHex: "#FFD6D6"))
+    /// Семантические цвета приложения, привязанные к системной палитре macOS
+    /// (чтобы UI выглядел "по-Apple" и корректно работал в Light/Dark).
+    static let blackApp = Color(nsColor: .windowBackgroundColor)
+    static let grayApp = Color(nsColor: .controlBackgroundColor)
+    static let lightGrayApp = Color(nsColor: .textBackgroundColor)
+
+    static let mainTextApp = Color(nsColor: .labelColor)
+    static let secondaryTextApp = Color(nsColor: .secondaryLabelColor)
+
+    static let blueAccent = Color(nsColor: .controlAccentColor)
+    static let greenAccent = Color(nsColor: .systemGreen)
+    static let redAccent = Color(nsColor: .systemRed)
+    static let orangeAccent = Color(nsColor: .systemOrange)
+    static let yellowAccent = Color(nsColor: .systemYellow)
+
+    static let cardBackgroundApp = Color(nsColor: .controlBackgroundColor)
+    static let borderApp = Color(nsColor: .separatorColor)
 }
 
 extension Color {

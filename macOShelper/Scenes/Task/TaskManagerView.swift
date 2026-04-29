@@ -57,7 +57,7 @@ struct TaskManagerView: View {
                 Button("Добавить задачу") {
                     showingAddTask = true
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .applyPrimaryButton()
             }
             
             if viewModel.filterPriority != nil || !searchText.isEmpty {
@@ -97,7 +97,7 @@ struct TaskManagerView: View {
                 Button("Добавить задачу") {
                     showingAddTask = true
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .applyPrimaryButton()
             } else {
                 Text("Попробуйте изменить параметры поиска")
                     .foregroundColor(.secondaryTextApp)
@@ -106,7 +106,7 @@ struct TaskManagerView: View {
                     searchText = ""
                     viewModel.filterPriority = nil
                 }
-                .buttonStyle(SecondaryButtonStyle())
+                .applySecondaryButton()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -263,12 +263,12 @@ struct TaskRowView: View {
                     Button("Редактировать") {
                         onEdit()
                     }
-                    .buttonStyle(PrimaryButtonStyle())
+                    .applySecondaryButton()
                     
-                    Button("Удалить") {
+                    Button("Удалить", role: .destructive) {
                         onDelete()
                     }
-                    .buttonStyle(SecondaryButtonStyle())
+                    .applySecondaryButton()
                 }
             }
         }

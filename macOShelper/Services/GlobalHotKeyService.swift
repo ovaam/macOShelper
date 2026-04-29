@@ -1,7 +1,6 @@
 import Foundation
 internal import AppKit
 import Carbon
-import ApplicationServices
 
 final class GlobalHotKeyService {
     static let shared = GlobalHotKeyService()
@@ -20,11 +19,6 @@ final class GlobalHotKeyService {
 
     func registerHotKey(keyCode: UInt32 = 49, modifiers: UInt32 = 3, callback: @escaping () -> Void) {
         unregisterHotKey()
-
-        let options = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String: false]
-        guard AXIsProcessTrustedWithOptions(options as CFDictionary) else {
-            return
-        }
 
         activationHandler = callback
 

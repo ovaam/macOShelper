@@ -71,7 +71,7 @@ struct TimeManagerView: View {
     private func headerSection() -> some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Фокус-задача")
-                .font(Font.custom("HSESans-SemiBold", size: 14))
+                .font(.callout.weight(.semibold))
                 .foregroundColor(.secondaryTextApp)
             
             Picker("", selection: $selectedTaskID) {
@@ -93,7 +93,7 @@ struct TimeManagerView: View {
             }
 
             Text("Длительность")
-                .font(Font.custom("HSESans-SemiBold", size: 14))
+                .font(.callout.weight(.semibold))
                 .foregroundColor(.secondaryTextApp)
 
             customSegmentControl()
@@ -120,7 +120,7 @@ struct TimeManagerView: View {
     private func segmentButton(label: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(label)
-                .font(Font.custom("HSESans-Regular", size: 14))
+                .font(.callout)
                 .foregroundColor(isSelected ? .white : .secondaryTextApp)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(isSelected ? Color.grayApp : Color.clear)
@@ -132,20 +132,20 @@ struct TimeManagerView: View {
     private func timerSection() -> some View {
         VStack(spacing: 8) {
             Text(formattedRemaining())
-                .font(Font.custom("HSESans-Bold", size: 48))
+                .font(.system(size: 48, weight: .bold, design: .monospaced))
                 .foregroundColor(.mainTextApp)
 
             if service.isPaused() {
                 Text("Пауза")
-                    .font(Font.custom("HSESans-SemiBold", size: 14))
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.secondaryTextApp)
             } else if service.isRunning() {
                 Text("В фокусе…")
-                    .font(Font.custom("HSESans-SemiBold", size: 14))
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.secondaryTextApp)
             } else {
                 Text("Готов к старту")
-                    .font(Font.custom("HSESans-SemiBold", size: 14))
+                    .font(.callout.weight(.semibold))
                     .foregroundColor(.secondaryTextApp)
             }
         }
@@ -179,7 +179,7 @@ struct TimeManagerView: View {
     private func statsSection() -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Статистика")
-                .font(Font.custom("HSESans-SemiBold", size: 14))
+                .font(.callout.weight(.semibold))
                 .foregroundColor(.secondaryTextApp)
 
             VStack(spacing: 12) {
@@ -208,10 +208,10 @@ struct TimeManagerView: View {
     private func statTile(title: String, seconds: TimeInterval) -> some View {
         VStack(alignment: .leading, spacing: 6) {
             Text(title)
-                .font(Font.custom("HSESans-Regular", size: 12))
+                .font(.caption)
                 .foregroundColor(.secondaryTextApp)
             Text(formatHHMM(from: seconds))
-                .font(Font.custom("HSESans-Bold", size: 20))
+                .font(.title3.weight(.semibold))
                 .foregroundColor(.mainTextApp)
         }
         .padding(12)
@@ -224,7 +224,7 @@ struct TimeManagerView: View {
         VStack(alignment: .leading, spacing: 8) {
 
             Text("Режим фокусирования")
-                .font(Font.custom("HSESans-SemiBold", size: 14))
+                .font(.callout.weight(.semibold))
                 .foregroundColor(.secondaryTextApp)
                 .padding(.top, 12)
 
@@ -245,7 +245,7 @@ struct TimeManagerView: View {
                 }
 
                 Text("Нужно настроить один раз, чтобы фокус включался и выключался автоматически.")
-                    .font(Font.custom("HSESans-Regular", size: 12))
+                    .font(.caption)
                     .foregroundColor(.secondaryTextApp)
                     .padding(.top, 4)
 
@@ -267,12 +267,12 @@ struct TimeManagerView: View {
     private func customTimeInputSheet() -> some View {
         VStack(spacing: 16) {
             Text("Выберите длительность")
-                .font(Font.custom("HSESans-SemiBold", size: 16))
+                .font(.headline)
                 .foregroundColor(.mainTextApp)
 
             TextField("Минуты", text: $customMinutesInput)
                 .textFieldStyle(.roundedBorder)
-                .font(Font.custom("HSESans-Regular", size: 14))
+                .font(.body)
                 .frame(width: 120)
                 .multilineTextAlignment(.center)
 

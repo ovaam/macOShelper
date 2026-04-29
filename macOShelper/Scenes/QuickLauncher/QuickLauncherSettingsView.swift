@@ -6,7 +6,7 @@ import ApplicationServices
 struct QuickLauncherSettingsView: View {
     @State private var hotkeyEnabled: Bool = true
     @State private var hotkeyKeyCode: UInt32 = 49
-    @State private var hotkeyModifiers: UInt32 = 3
+    @State private var hotkeyModifiers: UInt32 = KeyboardModifiers.cmdKey | KeyboardModifiers.optionKey
     @State private var isRecording: Bool = false
     @State private var recordingKeyCode: UInt16? = nil
     @State private var recordingModifiers: NSEvent.ModifierFlags = []
@@ -27,7 +27,7 @@ struct QuickLauncherSettingsView: View {
                     .foregroundColor(.mainTextApp)
                 
                 Toggle("Включить быстрый лаунчер", isOn: $hotkeyEnabled)
-                    .font(Font.custom(CustomFonts.sansRegular.rawValue, size: 15))
+                    .font(.body)
                     .foregroundColor(.mainTextApp)
                     .onChange(of: hotkeyEnabled) { newValue in
                         newValue ? registerHotkey() : unregisterHotkey()
@@ -143,7 +143,10 @@ struct QuickLauncherSettingsView: View {
             hotkeyKeyCode = savedKeyCode
         }
         if let savedModifiers = UserDefaults.standard.object(forKey: "hotkeyModifiers") as? UInt32 {
-            hotkeyModifiers = savedModifiers
+            // Миграция со старого неверного формата (например `3`).
+            hotkeyModifiers = savedModifiers < KeyboardModifiers.cmdKey
+            ? (KeyboardModifiers.cmdKey | KeyboardModifiers.optionKey)
+            : savedModifiers
         }
     }
     
@@ -213,10 +216,6 @@ struct QuickLauncherSettingsView: View {
     }
     
     private func registerHotkey() {
-        guard AXIsProcessTrusted() else {
-            return
-        }
-        
         GlobalHotKeyService.shared.registerHotKey(
             keyCode: hotkeyKeyCode,
             modifiers: hotkeyModifiers,

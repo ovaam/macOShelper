@@ -19,7 +19,7 @@ struct MainView: View {
                 }) {
                     Label("🧪 TEST Hotkey", systemImage: "play")
                 }
-                
+
                 NavigationLink(value: Tab.taskManager) {
                     Label(Tab.taskManager.rawValue, systemImage: "checklist")
                 }
@@ -104,11 +104,11 @@ struct ExchangeBufferView: View {
             HStack(alignment: .firstTextBaseline) {
                 VStack(alignment: .leading, spacing: 6) {
                     Text("История буфера обмена")
-                        .font(Font.custom("HSESans-Bold", size: 22))
+                        .font(.title2.weight(.semibold))
                         .foregroundColor(.mainTextApp)
 
                     Text("Выберите запись или нажмите сочетание клавиш, чтобы вставить содержимое в активное окно.")
-                        .font(Font.custom("HSESans-Regular", size: 13))
+                        .font(.callout)
                         .foregroundColor(.secondaryTextApp)
                 }
 
@@ -133,7 +133,7 @@ struct ExchangeBufferView: View {
                             service.clearAll()
                         } label: {
                             Label("Очистить", systemImage: "trash")
-                                .font(Font.custom("HSESans-Regular", size: 13))
+                                .font(.callout)
                         }
                         .applySecondaryButton()
                     }
@@ -154,11 +154,11 @@ struct ExchangeBufferView: View {
     private var emptyState: some View {
         VStack(spacing: 8) {
             Text("Пока здесь пусто")
-                .font(Font.custom("HSESans-SemiBold", size: 16))
+                .font(.headline)
                 .foregroundColor(.secondaryTextApp)
 
             Text("Скопируйте текст в любом приложении — он появится в истории.")
-                .font(Font.custom("HSESans-Regular", size: 13))
+                .font(.callout)
                 .foregroundColor(.secondaryTextApp)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -192,7 +192,7 @@ struct ExchangeBufferView: View {
 
                     VStack(alignment: .leading, spacing: 8) {
                         Text(itemPreview(item))
-                            .font(Font.custom("HSESans-Regular", size: 14))
+                            .font(.body)
                             .foregroundColor(.mainTextApp)
                             .lineLimit(3)
                             .multilineTextAlignment(.leading)
@@ -200,12 +200,12 @@ struct ExchangeBufferView: View {
 
                         if let secondary = secondaryDescription(for: item) {
                             Text(secondary)
-                                .font(Font.custom("HSESans-Regular", size: 12))
+                                .font(.caption)
                                 .foregroundColor(.secondaryTextApp)
                         }
 
                         Text(item.capturedAt, style: .time)
-                            .font(Font.custom("HSESans-Regular", size: 12))
+                            .font(.caption)
                             .foregroundColor(.secondaryTextApp)
                     }
                 }
@@ -286,7 +286,7 @@ struct ExchangeBufferView: View {
 
     private func shortcutBadge(_ text: String, isPrimary: Bool) -> some View {
         Text(text)
-            .font(Font.custom("HSESans-SemiBold", size: 12))
+            .font(.caption.weight(.semibold))
             .foregroundColor(isPrimary ? .black : .secondaryTextApp)
             .padding(.horizontal, 8)
             .padding(.vertical, 4)
@@ -391,7 +391,7 @@ struct ExchangeBufferView: View {
                             .shadow(radius: 12)
 
                         Text("Отпустите, чтобы закрыть")
-                            .font(Font.custom("HSESans-Regular", size: 13))
+                            .font(.callout)
                             .foregroundColor(.secondaryTextApp)
                     }
                     .padding()

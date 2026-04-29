@@ -10,7 +10,20 @@ enum CustomFonts: String {
 
 private extension Font {
     static func custom(_ customFont: CustomFonts, size: CGFloat) -> Font {
-        Font.custom(customFont.rawValue, size: size)
+        // Переиспользуем существующие вызовы `font(customFont:, size:)`,
+        // но рендерим системным шрифтом, чтобы интерфейс выглядел нативно.
+        switch customFont {
+        case .sansBold:
+            return .system(size: size, weight: .bold)
+        case .sansSemiBold:
+            return .system(size: size, weight: .semibold)
+        case .sansRegular:
+            return .system(size: size, weight: .regular)
+        case .sansThin:
+            return .system(size: size, weight: .thin)
+        case .sansItalic:
+            return .system(size: size, weight: .regular).italic()
+        }
     }
 }
 

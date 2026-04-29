@@ -27,7 +27,7 @@ struct QuickLauncherView: View {
                 if selectedTab == .search {
                     TextField("Поиск", text: $viewModel.searchText)
                         .textFieldStyle(.plain)
-                        .font(Font.custom(CustomFonts.sansRegular.rawValue, size: 18))
+                        .font(.system(size: 18))
                         .foregroundColor(.mainTextApp)
                         .focused($isSearchFocused)
                     .onSubmit {
@@ -74,7 +74,7 @@ struct QuickLauncherView: View {
                     }
                 } else {
                     Text("Буфер обмена")
-                        .font(Font.custom(CustomFonts.sansSemiBold.rawValue, size: 18))
+                        .font(.system(size: 18, weight: .semibold))
                         .foregroundColor(.mainTextApp)
                 }
                 

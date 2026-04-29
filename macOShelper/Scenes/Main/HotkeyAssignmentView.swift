@@ -18,11 +18,11 @@ struct HotkeyAssignmentView: View {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 6) {
                 Text("Назначить сочетание клавиш")
-                    .font(Font.custom("HSESans-Bold", size: 18))
+                    .font(.headline)
                     .foregroundColor(.mainTextApp)
 
                 Text("После назначения вы сможете вставлять «\(item.preview)» из любого приложения.")
-                    .font(Font.custom("HSESans-Regular", size: 13))
+                    .font(.callout)
                     .foregroundColor(.secondaryTextApp)
                     .lineLimit(2)
             }
@@ -32,17 +32,17 @@ struct HotkeyAssignmentView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
 
             Text(message)
-                .font(Font.custom("HSESans-Regular", size: 12))
+                .font(.caption)
                 .foregroundColor(.secondaryTextApp)
 
             if let recordedHotkey {
                 HStack {
                     Text("Выбранное сочетание:")
-                        .font(Font.custom("HSESans-SemiBold", size: 14))
+                        .font(.callout)
                         .foregroundColor(.secondaryTextApp)
 
                     Text(recordedHotkey.display)
-                        .font(Font.custom("HSESans-Bold", size: 14))
+                        .font(.callout.weight(.semibold))
                         .foregroundColor(.mainTextApp)
                 }
             }
